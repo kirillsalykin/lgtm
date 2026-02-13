@@ -6,6 +6,6 @@ resources:
 - load-generator.yaml
 configMapGenerator:
 - name: example-workload
-  namespace: app-dev
+  namespace: default
   files:
   - service.clj
