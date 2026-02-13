@@ -7,7 +7,7 @@ spec:
   interval: 1h
   url: oci://ghcr.io/grafana/helm-charts/loki
   ref:
-    semver: ">=5.0.0"
+    semver: ">=6.0.0"
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -28,22 +28,28 @@ spec:
     loki:
       auth_enabled: false
 
-    storage:
-      type: filesystem
-      bucketNames:
-        chunks: chunks
-        ruler: ruler
-        admin: admin
+      commonConfig:
+        replication_factor: 1
 
-    schemaConfig:
-      configs:
-        - from: 2024-01-01
-          store: tsdb
-          object_store: filesystem
-          schema: v13
-          index:
-            prefix: index_
-            period: 24h
+      storage:
+        type: filesystem
+        bucketNames:
+          chunks: chunks
+          ruler: ruler
+          admin: admin
+
+      # schemaConfig:
+      #   configs:
+      #     - from: "2024-01-01"
+      #       store: tsdb
+      #       object_store: filesystem
+      #       schema: v13
+      #       index:
+      #         prefix: index_
+      #         period: 24h
+
+      # limits_config:
+      #   retention_period: 0s
 
     singleBinary:
       replicas: 1
