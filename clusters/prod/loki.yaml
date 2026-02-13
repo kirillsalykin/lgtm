@@ -30,6 +30,10 @@ spec:
 
     storage:
       type: filesystem
+      bucketNames:
+        chunks: chunks
+        ruler: ruler
+        admin: admin
 
     schemaConfig:
       configs:
